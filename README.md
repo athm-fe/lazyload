@@ -28,7 +28,7 @@ removeAttr | boolean | true | 当图片加载完毕后，去掉 `attr` 和 `srcs
 onAppear | function | null | 当 DOM 满足条件时, 触发该回调函数, 仅触发一次.
 onLoad | function | null | 仅针对图片, 当图片加载成功时触发该回调函数.
 onError | function | null | 仅针对图片, 当图片加载失败时触发该回调函数.
-placeholder | string | `"data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="` | 仅针对图片, 占位图, 当没有默认 `src` 属性时, 会设置这个图片.
+placeholder | string | 一张 base64 透明图 | 仅针对图片, 占位图, 当没有默认 `src` 属性时, 会设置这个图片.
 
 ## Methods
 
