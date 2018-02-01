@@ -136,9 +136,9 @@ function Lazyload($elements, options) {
 Lazyload.Default = {
   container: window,
   threshold: 0,
-  failureLimit: 0,
-  skipInvisible: true,
   direction: Direction.VERTICAL,
+  skipInvisible: true,
+  failureLimit: 0,
   delay: -1,
   attr: "data-src",
   srcsetAttr: "data-srcset",

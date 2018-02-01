@@ -1,34 +1,13 @@
 # Lazyload
 
+支持图片懒加载，对于非图片内容，可以通过 `onAppear` 回调函数来自己处理加载逻辑
+
 ## Usage
 
-可以通过两种方式来初始化 Layer 控件, 你可以根据自己的需要来进行选择. 另外, 对话框的关闭也非常方便.
-
-### Via data attributes
-
-无需写 JavaScript , 即可启用对话框. 在一个触发元素（比如按钮）上设置 `data-toggle="layer"` , 然后通过 `data-target="#ID"` 指定一个对应的要打开的弹出层.
-
-```html
-<button type="button" data-toggle="layer" data-target="#layer">打开</button>
-```
-
-### Via JavaScript
-
-直接在对应的弹出层 DOM 上调用即可.
+直接在对应的 DOM 上调用即可.
 
 ```javascript
-$('#layer').layer(options);
-```
-
-### `data-dismiss="layer"`
-
-除了下文中将会提到的隐藏对话框的 JS 方法外, 你也可以在对话框的某个（或某些）DOM元素上配置 `data-dismiss="layer"` 来达到目的
-
-```javascript
-<div id="layer" class="layer" style="display:none;">
-  <i data-dismiss="layer">关闭</i>
-  <div class="layer-content">内容</div>
-</div>
+$('img[data-src]').lazyload(options);
 ```
 
 ## Options
@@ -37,75 +16,32 @@ $('#layer').layer(options);
 
 Name | Type | Default | Description
 ---- | ---- | ------- | -----------
-keyboard | boolean | true | 是否支持 ESC 关闭.
-backdrop | boolean or the string `'lock'` | true | 是否创建遮罩层. 默认点击遮罩层可以关闭对话框, 当值为 `'lock'` 时，不支持点击遮罩层关闭对话框.
-opacity | number | 0.5 | 遮罩层的透明度, 0 到 1 之间的浮点数.
-show | boolean | true | 初始化时是否打开对话框.
-time | number | 0 | 自动关闭, 默认不自动关闭, 可以配置毫秒数表示关闭时间
+container | object | `window` | 滚动容器, 默认是 `window` , 仅支持原生 Dom 对象做为参数.
+threshold | number | 0 | 偏移值, 用户判断 DOM 是否满足条件.
+direction | string | `'vertical'` | 方向, 用于判断 DOM 是否满足条件. 可配置 `'both'`(位于viewport内), `'vertical'`(仅考虑垂直方向), `'horizontal'`(仅考虑水平方向), `'above'`(位于viewport及上方即可).
+skipInvisible | boolean | true | 是否忽略不可见 DOM . 不建议修改此项配置
+failureLimit | number | 0 | 懒加载内部有一个依赖图片顺序的性能优化机制, 如果你的图片顺序是错乱的, 你可以适当调大该数值.
+delay | number | -1 | 延迟加载时间, 单位毫秒, 当 delay >= 0 时, 会在 delay 时长后立即加载所有图片.
+attr | string or function | data-src | 配置图片的 `src` 来源
+srcsetAttr | string or function | data-srcset | 配置图片的 `srcset` 来源
+removeAttr | boolean | true | 当图片加载完毕后，去掉 `attr` 和 `srcsetAttr` 配置的属性
+onAppear | function | null | 当 DOM 满足条件时, 触发该回调函数, 仅触发一次.
+onLoad | function | null | 仅针对图片, 当图片加载成功时触发该回调函数.
+onError | function | null | 仅针对图片, 当图片加载失败时触发该回调函数.
+placeholder | string | `"data:image/gif;base64,R0lGODlhAQABAJEAAAAAAP///////wAAACH5BAEHAAIALAAAAAABAAEAAAICVAEAOw=="` | 仅针对图片, 占位图, 当没有默认 `src` 属性时, 会设置这个图片.
 
 ## Methods
 
-### `.layer(options)`
+### `.lazyload(options)`
 
-初始化当前 DOM 内容为一个对话框, 可以接受参数进行配置.
-
-```javascript
-$('#layer').layer({
-  keyboard: false
-});
-```
-
-### `.layer('show')`
-
-手动打开对话框. 该方法运行结束并不代表对话框已真实显示, 如果需要在真实显示后执行代码, 可以使用后面的自定义事件.
+初始化, 可以接受参数进行配置.
 
 ```javascript
-$('#layer').layer('show');
-```
-
-### `.layer('hide')`
-
-手动关闭对话框. 该方法运行结束并不代表对话框已真实显示, 如果需要在真实显示后执行代码, 可以使用后面的自定义事件.
-
-```javascript
-$('#layer').layer('hide');
-```
-
-### `.layer('toggle')`
-
-手动打开或者关闭. 该方法运行结束并不代表对话框已真实显示, 如果需要在真实显示后执行代码, 可以使用后面的自定义事件.
-
-```javascript
-$('#layer').layer('toggle');
-```
-
-### `.layer('handleUpdate')`
-
-手动调整对话框的位置, 常用于对话框尺寸发生变化的情况.
-
-```javascript
-$('#layer').layer('handleUpdate');
-```
-
-## Event
-
-Event Type | Description
----------- | -----------
-show.fe.layer | 当 `show` 方法被调用, 此事件会立即触发. 如果是通过点击按钮打开的, 则可以通过事件对象的 `relatedTarget` 获取到点击按钮.
-shown.fe.layer | 对话框已呈现完毕时触发.
-hide.fe.layer | 当 `hide` 方法被调用, 此事件会立即触发. 如果是通过点击按钮打开的, 则可以通过事件对象的 `relatedTarget` 获取到点击按钮.
-hidden.fe.layer | 对话框已隐藏完毕时触发.
-
-```javascript
-$('#layer').on('show.fe.layer', function (e) {
-  // 阻止对话框打开
-  e.preventDefault();
-
-  // 如果是通过点击按钮打开的，则可以获取到点击按钮
-  e.relatedTarget;
+$('img.lazy').lazyload({
+  threshold: 100
 });
 ```
 
 # End
 
-Thanks to [Bootstrap](http://getbootstrap.com/)
+Thanks to [Bootstrap](http://getbootstrap.com/) and [tuupola/jquery_lazyload](https://github.com/tuupola/jquery_lazyload)
