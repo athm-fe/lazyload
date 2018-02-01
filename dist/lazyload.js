@@ -115,6 +115,15 @@ function Lazyload($elements, options) {
   // 图片预处理
   this._prepareImg();
 
+  // 如果设置了 delay , 则直接加载
+  if (this.options.delay >= 0) {
+    setTimeout(function () {
+      _this._loadDirectly();
+    }, this.options.delay);
+
+    return;
+  }
+
   // 绑定事件
   this.bind();
 
@@ -130,7 +139,7 @@ Lazyload.Default = {
   failureLimit: 0,
   skipInvisible: true,
   direction: Direction.VERTICAL,
-  delay: -1, // TODO
+  delay: -1,
   attr: "data-src",
   srcsetAttr: "data-srcset",
   removeAttr: true,
@@ -327,6 +336,20 @@ Lazyload.prototype._prepareImg = function () {
     // If no src attribute given use placeholder.
     if ($item.attr('src') === undefined || $item.attr('src') === false) {
       $item.attr('src', placeholder);
+    }
+  });
+};
+
+Lazyload.prototype._loadDirectly = function () {
+  var _this3 = this;
+
+  this.$elements.each(function (index, elem) {
+    if (_this3.options.onAppear) {
+      _this3.options.onAppear.call(elem, _this3.$elements.length, _this3.options);
+    }
+
+    if ($(elem).is('img')) {
+      _this3._processImg(elem);
     }
   });
 };
