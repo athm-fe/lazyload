@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lazyload</title>
+  <link rel="stylesheet" href="docs/index.css">
+</head>
+<body>
+  <h1>Lazyload</h1>
+
+  <div class="wrap">
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+  </div>
+
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic01&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic02&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic03&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic04&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic05&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic06&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic07&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic08&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic09&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic10&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic11&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic12&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic13&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic14&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic15&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic16&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic17&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic18&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic19&w=400&h=400" width="400" height="400">
+  <img data-src="https://placeholdit.imgix.net/~text?txtsize=30&txt=pic20&w=400&h=400" width="400" height="400">
+
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="dist/lazyload.js"></script>
+  <script>
+    $('img[data-src]').lazyload();
+
+    $('.box').lazyload({
+      direction: 'above',
+      onAppear: function() {
+        $(this).addClass('active').html($(this).index())
+      }
+    })
+  </script>
+</body>
+</html>
