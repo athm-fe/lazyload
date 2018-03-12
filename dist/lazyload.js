@@ -44,24 +44,24 @@ function aboveTheTop(element, options) {
   var fold = void 0;
 
   if (options.container === undefined || options.container === window) {
-    fold = $(window).scrollTop();
+    fold = 0;
   } else {
-    fold = $(options.container).offset().top;
+    fold = $(options.container)[0].getBoundingClientRect().top;
   }
 
-  return fold >= $(element).offset().top + $(element).height() + options.threshold;
+  return fold >= $(element)[0].getBoundingClientRect().bottom + options.threshold;
 }
 
 function leftTheBegin(element, options) {
   var fold = void 0;
 
   if (options.container === undefined || options.container === window) {
-    fold = $(window).scrollLeft();
+    fold = 0;
   } else {
-    fold = $(options.container).offset().left;
+    fold = $(options.container)[0].getBoundingClientRect().left;
   }
 
-  return fold >= $(element).offset().left + $(element).width() + options.threshold;
+  return fold >= $(element)[0].getBoundingClientRect().right + options.threshold;
 }
 
 function belowTheFold(element, options) {
@@ -69,24 +69,24 @@ function belowTheFold(element, options) {
 
   if (options.container === undefined || options.container === window) {
     var height = window.innerHeight ? window.innerHeight : $(window).height();
-    fold = $(window).scrollTop() + height;
+    fold = height;
   } else {
-    fold = $(options.container).offset().top + $(options.container).height();
+    fold = $(options.container)[0].getBoundingClientRect().bottom;
   }
 
-  return fold <= $(element).offset().top - options.threshold;
+  return fold <= $(element)[0].getBoundingClientRect().top - options.threshold;
 }
 
 function rightTheFold(element, options) {
   var fold = void 0;
 
   if (options.container === undefined || options.container === window) {
-    fold = $(window).scrollLeft() + $(window).width();
+    fold = $(window).width();
   } else {
-    fold = $(options.container).offset().left + $(options.container).width();
+    fold = $(options.container)[0].getBoundingClientRect().right;
   }
 
-  return fold <= $(element).offset().left - options.threshold;
+  return fold <= $(element)[0].getBoundingClientRect().left - options.threshold;
 }
 
 var uuid = function () {
