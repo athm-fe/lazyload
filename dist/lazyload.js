@@ -137,7 +137,7 @@ Lazyload.Default = {
   container: window,
   threshold: 0,
   direction: Direction.VERTICAL,
-  skipInvisible: true,
+  skipInvisible: false,
   failureLimit: 0,
   delay: -1,
   attr: "data-src",
@@ -368,38 +368,6 @@ function Plugin(config) {
 
   return this;
 }
-
-// var scrollLazyLoad = function(element, options) {
-//   this.element = element;
-//   this.options = options;
-//   this.init()
-// };
-// scrollLazyLoad.prototype = {
-//   init: function() {
-//     var that = this;
-//     var $window = $(window);
-//     var scrollTimer = null;
-//     var scrollHandler = function() {
-//       var $pnl = that.element;
-//       var windowTop = $window.scrollTop();
-//       if (windowTop + $window.height() > $pnl.offset().top - that.options.offset) {
-//         that.options.callback(that.element);
-//         $window.off("scroll", scrollFn)
-//       }
-//     };
-//     var scrollFn = function() {
-//       window.clearTimeout(scrollTimer);
-//       scrollTimer = setTimeout(scrollHandler, 30)
-//     };
-//     $window.on("scroll", scrollFn)
-//   }
-// };
-// $.fn.scrollLazyLoad = function(options) {
-//   return this.each(function() {
-//     var data = new scrollLazyLoad($(this),options)
-//   })
-// }
-
 
 /**
  * ------------------------------------------------------------------------

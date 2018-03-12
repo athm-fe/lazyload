@@ -121,7 +121,7 @@ Name | Type | Default | Description
 container | object | `window` | 滚动容器, 默认是 `window` , 仅支持原生 Dom 对象做为参数.
 threshold | number | 0 | 偏移值, 用户判断 DOM 是否满足条件.
 direction | string | vertical | 方向, 用于判断 DOM 是否满足条件. 可配置 `'both'`(位于viewport内), `'vertical'`(仅考虑垂直方向), `'horizontal'`(仅考虑水平方向), `'above'`(位于viewport及上方即可).
-skipInvisible | boolean | true | 是否忽略不可见 DOM . 不建议修改此项配置
+skipInvisible | boolean | false | 是否忽略不可见 DOM . 不建议修改此项配置
 failureLimit | number | 0 | 懒加载内部有一个依赖图片顺序的性能优化机制, 如果你的图片顺序是错乱的, 你可以适当调大该数值.
 delay | number | -1 | 延迟加载时间, 单位毫秒, 当 delay >= 0 时, 会在 delay 时长后立即加载所有图片.
 attr | string or function | data-src | 配置图片的 `src` 来源
