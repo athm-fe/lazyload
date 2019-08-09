@@ -144,6 +144,16 @@ $('img.lazy').lazyload({
 });
 ```
 
+### 手动销毁监听
+
+> 使用 $(el).lazyload(options) 方式创建的监听是 **无法** 手动（主动）去销毁监听的；（为了不影响 jQuery 的链式调用准则）
+
+1. 必须使用 `let lazyDestroyDemo = new AutoFE.Lazyload(el, options)` 来创建实例, `el` 可以是 jQuery 对象 / DOM 对象 / CSS 选择器（内部实现还是依赖 jQuery）  
+2. 当需要主动去销毁该实例的监听时，通过调用 `lazyDestroyDemo.unbind()` 来销毁  
+3. 必要时销毁实例 `lazyDestroyDemo = null`
+
+如在 Tab 形式的异步列表，在切换 Tab 时可能需要销毁之前的监听，否则会造成严重的性能问题。
+
 # End
 
 Thanks to [Bootstrap](http://getbootstrap.com/) and [tuupola/jquery_lazyload](https://github.com/tuupola/jquery_lazyload)
