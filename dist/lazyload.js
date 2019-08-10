@@ -1,6 +1,6 @@
 /*!
  * @autofe/lazyload v0.2.0
- * (c) 2018 Autohome Inc.
+ * (c) 2019 Autohome Inc.
  * Released under the MIT License.
  */
 (function (global, factory) {
@@ -102,11 +102,11 @@ var uuid = function () {
  * ------------------------------------------------------------------------
  */
 
-function Lazyload($elements, options) {
+function Lazyload(elements, options) {
   var _this = this;
 
   this.options = $.extend({}, Lazyload.Default, options);
-  this.$elements = $elements;
+  this.$elements = $(elements);
   this.$container = $(this.options.container);
   this._timer = null;
   this._unique = uuid();
@@ -263,6 +263,11 @@ Lazyload.prototype.bind = function () {
       }, 100);
     }
   });
+};
+
+Lazyload.prototype.unbind = function () {
+  var event = this._event;
+  this.$container.off(event);
 };
 
 Lazyload.prototype._processImg = function (item) {
